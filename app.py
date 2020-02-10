@@ -9,10 +9,13 @@ from flask_cors import CORS
 
 from models import setup_db, Movies, Actors, Assignments
 
+from auth import AuthError, requires_auth
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
+    app.secret_key = os.getenv('SECRET')
     CORS(app, resources={r"/*": {"origins": "*"}})
 
 
@@ -22,28 +25,16 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
         return response
 
-    @app.route('/<int:id>')
-    def index(id):
-        # Query to get actor by ID
-        del_actor = Actors.query.filter(Actors.id == id).one_or_none()
-
-        # Query to get actor's assignments
-        del_actor_assignments = Assignments.query.filter(Assignments.actor_id == id).all()
-        del_actor_assignments_list = [x.format() for x in del_actor_assignments]
-
-        for z in del_actor_assignments:
-            print(z.id)
-            print(z.actor_id)
-
-        return jsonify({
-            'actor': del_actor.id,
-            'assignment': del_actor_assignments_list,
-            'success': 200
-        }), 200
-        #return 'Looking good. Please use other endpoints.'
+    @app.route('/')
+    def index():
+        login_text = 'Go login here: '
+        login_url = 'https://student-msj-5.auth0.com/authorize?audience=agency&response_type=token&client_id=YsKxjvc06Wwy0Pz1qnQFsUPiOyxYdaIq&redirect_uri=https://127.0.0.1:5000/'
+        welcome_msg = login_text + login_url
+        return welcome_msg
 
     @app.route('/movies', methods=['GET'])
-    def get_movies():
+    @requires_auth('get:movies')
+    def get_movies(payload):
         try:
             # Get all movies
             movies = Movies.query.all()
@@ -58,7 +49,8 @@ def create_app(test_config=None):
 
 
     @app.route('/movies', methods=['POST'])
-    def insert_movie():
+    @requires_auth('post:movie')
+    def insert_movie(payload):
         # Get data
         print(request.get_json())
         new_title = request.get_json()['title']
@@ -88,7 +80,8 @@ def create_app(test_config=None):
                 abort(422)
 
     @app.route('/movies/<int:id>', methods=['DELETE'])
-    def delete_movie(id):
+    @requires_auth('delete:movie')
+    def delete_movie(payload, id):
         try:
             # Query to get movie by ID
             del_movie = Movies.query.filter(Movies.id == id).one_or_none()
@@ -115,7 +108,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/movies/<int:id>', methods=['PATCH'])
-    def edit_movie(id):
+    @requires_auth('patch:movie')
+    def edit_movie(payload, id):
         try:
             # Query to get movie by ID
             edit_movie = Movies.query.filter(Movies.id == id).one_or_none()
@@ -159,7 +153,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors', methods=['GET'])
-    def get_actors():
+    @requires_auth('get:actors')
+    def get_actors(payload):
         try:
             # Get all movies
             actors = Actors.query.all()
@@ -173,7 +168,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors', methods=['POST'])
-    def insert_actor():
+    @requires_auth('post:actor')
+    def insert_actor(payload):
         try:
             # Get data
             print(request.get_json())
@@ -199,7 +195,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors/<int:id>', methods=['DELETE'])
-    def delete_actor(id):
+    @requires_auth('delete:actor')
+    def delete_actor(payload, id):
         try:
             # Query to get actor by ID
             del_actor = Actors.query.filter(Actors.id == id).one_or_none()
@@ -227,7 +224,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/actors/<int:id>', methods=['PATCH'])
-    def edit_actor(id):
+    @requires_auth('patch:actor')
+    def edit_actor(payload, id):
         try:
             # Query to get actor by ID
             edit_actor = Actors.query.filter(Actors.id == id).one_or_none()
@@ -271,7 +269,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/assignments', methods=['GET'])
-    def get_assignments():
+    @requires_auth('get:assignments')
+    def get_assignments(payload):
         try:
             # Get all movies
             assignments = Assignments.query.all()
@@ -285,7 +284,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/assignments', methods=['POST'])
-    def create_assignment():
+    @requires_auth('post:assignment')
+    def create_assignment(payload):
         try:
             # Get data
             new_movie_id = request.get_json()['movie_id']
@@ -321,7 +321,8 @@ def create_app(test_config=None):
             abort(422)
 
     @app.route('/assignments/<int:id>', methods=['DELETE'])
-    def delete_assignment(id):
+    @requires_auth('delete:assignment')
+    def delete_assignment(payload, id):
         try:
             # Query to get assignment by ID
             del_assignment = Assignments.query.filter(Assignments.id == id).one_or_none()
