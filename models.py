@@ -9,7 +9,8 @@ import datetime
 #-------------------
 
 database_name = "casting_agency"
-database_path = os.environ['DATABASE_URL']
+database_path = "postgresql://{}/{}".format('postgres:marco@localhost:5432', database_name)
+#database_path = os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 
