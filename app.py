@@ -1,7 +1,6 @@
 import os
 import dateutil.parser
 
-
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import sessionmaker
@@ -52,7 +51,6 @@ def create_app(test_config=None):
     @requires_auth('post:movie')
     def insert_movie(payload):
         # Get data
-        print(request.get_json())
         new_title = request.get_json()['title']
         new_release_date = request.get_json()['release_date']
 
@@ -383,7 +381,7 @@ def create_app(test_config=None):
 
     return app
 
-APP = create_app()
+app = create_app()
 
 if __name__ == '__main__':
     APP.run(host='0.0.0.0', port=8080, debug=True)
