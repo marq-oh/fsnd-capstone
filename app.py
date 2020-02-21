@@ -1,3 +1,7 @@
+"""
+Imports
+"""
+
 import os
 import dateutil.parser
 
@@ -24,13 +28,21 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
         return response
 
+    """
+    Root endpoint to tell user how / where to login
+    """
     @app.route('/')
     def index():
         login_text = 'Go login here: '
-        login_url = 'https://student-msj-5.auth0.com/authorize?audience=agency&response_type=token&client_id=YsKxjvc06Wwy0Pz1qnQFsUPiOyxYdaIq&redirect_uri=https://127.0.0.1:5000/'
+        login_url = 'https://student-msj-5.auth0.com/authorize?audience=agency&response_type=token&client_id=YsKxjvc06Wwy0Pz1qnQFsUPiOyxYdaIq&redirect_uri=https://ud-fsnd-capstone.herokuapp.com/'
         welcome_msg = login_text + login_url
         return welcome_msg
 
+    """
+    Movies endpoint
+    """
+
+    # Endpoint to display all movies
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):
@@ -46,7 +58,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
-
+    # Endpoint to insert new movie
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movie')
     def insert_movie(payload):
@@ -77,6 +89,7 @@ def create_app(test_config=None):
             except Exception:
                 abort(422)
 
+    # Endpoint to delete a movie
     @app.route('/movies/<int:id>', methods=['DELETE'])
     @requires_auth('delete:movie')
     def delete_movie(payload, id):
@@ -105,6 +118,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
+    # Endpoint to update a movie
     @app.route('/movies/<int:id>', methods=['PATCH'])
     @requires_auth('patch:movie')
     def edit_movie(payload, id):
@@ -150,11 +164,16 @@ def create_app(test_config=None):
         except:
             abort(422)
 
+    """
+    Actors endpoint
+    """
+
+    # Endpoint to display all actors
     @app.route('/actors', methods=['GET'])
     @requires_auth('get:actors')
     def get_actors(payload):
         try:
-            # Get all movies
+            # Get all actors
             actors = Actors.query.all()
             actors_list = [actor.format() for actor in actors]
 
@@ -165,12 +184,12 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
+    # Endpoint to insert a new actor
     @app.route('/actors', methods=['POST'])
     @requires_auth('post:actor')
     def insert_actor(payload):
         try:
             # Get data
-            print(request.get_json())
             new_name = request.get_json()['name']
             new_age = request.get_json()['age']
             new_gender = request.get_json()['gender']
@@ -192,6 +211,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
+    # Endpoint to delete an actor
     @app.route('/actors/<int:id>', methods=['DELETE'])
     @requires_auth('delete:actor')
     def delete_actor(payload, id):
@@ -221,6 +241,7 @@ def create_app(test_config=None):
         except:
             abort(422)
 
+    # Endpoint to edit an actor
     @app.route('/actors/<int:id>', methods=['PATCH'])
     @requires_auth('patch:actor')
     def edit_actor(payload, id):
@@ -266,21 +287,27 @@ def create_app(test_config=None):
         except:
             abort(422)
 
+    """
+    Assignments endpoint - To assign actors to movies
+    """
+
+    # Endpoint to display all assignments
     @app.route('/assignments', methods=['GET'])
     @requires_auth('get:assignments')
     def get_assignments(payload):
         try:
-            # Get all movies
+            # Get all assignments
             assignments = Assignments.query.all()
             assignments_list = [assignment.format() for assignment in assignments]
 
             return jsonify({
                 'success': True,
-                'actors_list': assignments_list
+                'assignments_list': assignments_list
             }), 200
         except Exception:
             abort(422)
 
+    # Endpoint to insert new assignment; Movie and Actor must exist
     @app.route('/assignments', methods=['POST'])
     @requires_auth('post:assignment')
     def create_assignment(payload):
@@ -318,6 +345,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
+    # Endpoint to delete an assignment
     @app.route('/assignments/<int:id>', methods=['DELETE'])
     @requires_auth('delete:assignment')
     def delete_assignment(payload, id):
@@ -338,6 +366,10 @@ def create_app(test_config=None):
 
         except:
             abort(422)
+
+    """
+    Error handling
+    """
 
     @app.errorhandler(404)
     def not_found(error):
