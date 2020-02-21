@@ -1,4 +1,4 @@
-Capstone Project: Casting Agency
+# Capstone Project: Casting Agency
 -----
 
 ## Motivation for project
