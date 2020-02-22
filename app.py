@@ -5,7 +5,7 @@ Imports
 import os
 import dateutil.parser
 
-from flask import Flask, request, abort, jsonify, render_template
+from flask import Flask, request, abort, jsonify, render_template, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import sessionmaker
 from flask_cors import CORS
@@ -414,6 +414,30 @@ def create_app(test_config=None):
         "error": 405,
         "message": "Method Not Allowed"
         }), 405
+
+    @app.errorhandler(401)
+    def unauthorized(error):
+        return jsonify({
+            "success": False,
+            "error": 401,
+            "message": "Unauthorized"
+        }), 401
+
+    @app.errorhandler(403)
+    def forbidden(error):
+        return jsonify({
+            "success": False,
+            "error": 403,
+            "message": "Forbidden"
+        }), 403
+
+    @app.errorhandler(AuthError)
+    def auth_error(error):
+        return jsonify({
+            "success": False,
+            "error": error.status_code,
+            "message": error.error
+        }), error.status_code
 
     return app
 
