@@ -12,7 +12,7 @@ High-level features of this project include:
 |:-----------:|:-------------------------------------------------------------------------------------------------------:|
 |    Movies   | Allows the addition, deletion and modification of a movie                                               |
 |    Actors   | Allows the addition, deletion and modification of an actor                                              |
-| Assignments | This endpoint assigns actors to movies. <br>Allows the addition, deletion and modification of an assignment |
+| Assignments | This endpoint assigns actors to movies. <br>Allows the addition and deletion of an assignment |
 
 
 **Notes:**
@@ -36,9 +36,9 @@ There are three (3) main roles; each with different permissions for each endpoin
 
 |        Role        |                                                     Permissions                                                     |                                  User Account                                 |
 |:------------------:|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
-|  Casting Assistant | * Can view actors and movies                                                                                          | * Username: casting_assistant@capstone-test.com<br>* Password: [To be provided] |
-|  Casting Director  | * All permissions a Casting Assistant has and…<br>* Add or delete an actor / assignment from the database<br>* Modify actors, assignments or movies | * Username: casting_director@capstone-test.com<br>* Password: [To be provided] |
-| Executive Producer | * All permissions a Casting Director has and…<br>* Add or delete a movie from the database                              | * Username: executive_producer@capstone-test.com<br>* Password: [To be provided] |
+|  Casting Assistant | * Can view actors and movies                                                                                          | * Username: casting_assistant@capstone-test.com<br>* Password: [contact author] |
+|  Casting Director  | * All permissions a Casting Assistant has and…<br>* Add or delete an actor / assignment from the database<br>* Modify actors, assignments or movies | * Username: casting_director@capstone-test.com<br>* Password: [contact author]   |
+| Executive Producer | * All permissions a Casting Director has and…<br>* Add or delete a movie from the database                              | * Username: executive_producer@capstone-test.com<br>* Password: [contact author] |
 
 
 ## Endpoints
