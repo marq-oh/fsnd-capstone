@@ -39,6 +39,7 @@ def create_app(test_config=None):
     Logged-in endpoint
     """
     @app.route('/logged-in')
+    @requires_auth('get:movies')
     def index():
         return render_template('logged-in.html')
 
