@@ -18,7 +18,7 @@ High-level features of this project include:
 **Notes:**
 * This project is hosted on Heroku
 * There is no front-end; only a back-end API
-* Before using the API Endpoints below, [please login](https://student-msj-5.auth0.com/authorize?audience=agency&response_type=token&client_id=YsKxjvc06Wwy0Pz1qnQFsUPiOyxYdaIq&redirect_uri=https://ud-fsnd-capstone.herokuapp.com/) using one of the user accounts available in the Authentication section
+* Before using the API Endpoints below, [please login](https://ud-fsnd-capstone.herokuapp.com/) using one of the user accounts available in the Authentication section
 * URL for Endpoints: https://ud-fsnd-capstone.herokuapp.com/{Endpoint}
 
 ## Project dependencies
