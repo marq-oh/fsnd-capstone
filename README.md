@@ -36,9 +36,9 @@ There are three (3) main roles; each with different permissions for each endpoin
 
 |        Role        |                                                     Permissions                                                     |                                  User Account                                 |
 |:------------------:|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
-|  Casting Assistant | * Can view actors and movies                                                                                          | * Username: casting_assistant@capstone-test.com<br>* Password: assistant_password |
-|  Casting Director  | * All permissions a Casting Assistant has and…<br>* Add or delete an actor / assignment from the database<br>* Modify actors, assignments or movies | * Username: casting_director@capstone-test.com<br>* Password: director_password   |
-| Executive Producer | * All permissions a Casting Director has and…<br>* Add or delete a movie from the database                              | * Username: executive_producer@capstone-test.com<br>* Password: producer_password |
+|  Casting Assistant | * Can view actors and movies                                                                                          | * Username: casting_assistant@capstone-test.com<br>* Password: assistant_password123 |
+|  Casting Director  | * All permissions a Casting Assistant has and…<br>* Add or delete an actor / assignment from the database<br>* Modify actors, assignments or movies | * Username: casting_director@capstone-test.com<br>* Password: director_password123   |
+| Executive Producer | * All permissions a Casting Director has and…<br>* Add or delete a movie from the database                              | * Username: executive_producer@capstone-test.com<br>* Password: producer_password123 |
 
 
 ## Endpoints
