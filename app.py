@@ -5,7 +5,7 @@ Imports
 import os
 import dateutil.parser
 
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import sessionmaker
 from flask_cors import CORS
@@ -33,10 +33,7 @@ def create_app(test_config=None):
     """
     @app.route('/')
     def index():
-        login_text = 'Go login here: '
-        login_url = 'https://student-msj-5.auth0.com/authorize?audience=agency&response_type=token&client_id=YsKxjvc06Wwy0Pz1qnQFsUPiOyxYdaIq&redirect_uri=https://ud-fsnd-capstone.herokuapp.com/'
-        welcome_msg = login_text + login_url
-        return welcome_msg
+        return render_template('login.html')
 
     """
     Movies endpoint
