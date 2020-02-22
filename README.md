@@ -36,15 +36,16 @@ There are three (3) main roles; each with different permissions for each endpoin
 
 |        Role        |                                                     Permissions                                                     |                                  User Account                                 |
 |:------------------:|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
-|  Casting Assistant | * Can view actors, movies and assignments                                                                                          | * Username: casting_assistant@capstone-test.com<br>* Password: [contact author] |
-|  Casting Director  | * All permissions a Casting Assistant has and…<br>* Add or delete an actor / assignment from the database<br>* Modify actors, assignments or movies | * Username: casting_director@capstone-test.com<br>* Password: [contact author]   |
-| Executive Producer | * All permissions a Casting Director has and…<br>* Add or delete a movie from the database                              | * Username: executive_producer@capstone-test.com<br>* Password: [contact author] |
+|  Casting Assistant | - Can view actors, movies and assignments                                                                                          | - Username: casting_assistant@capstone-test.com<br>* Password: [contact author] |
+|  Casting Director  | - All permissions a Casting Assistant has and…<br>- Add or delete an actor / assignment from the database<br>* Modify actors, assignments or movies | - Username: casting_director@capstone-test.com<br>* Password: [contact author]   |
+| Executive Producer | - All permissions a Casting Director has and…<br>* Add or delete a movie from the database                              | - Username: executive_producer@capstone-test.com<br>* Password: [contact author] |
 
 
 ## Endpoints
 
 ### GET '/movies'
 - Fetches all movies available in the database
+- Roles: All
 - Request Arguments: None
 - Returns:
 
@@ -58,6 +59,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### POST '/movies'
 
 - Inserts a new movie into the database
+- Roles: Executive Producer only
 - Request Arguments:
 
 ```
@@ -81,6 +83,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### DELETE '/movies/<int:id>'
 
 - Deletes a movie by ID
+- Roles: Executive Producer only
 - Request Arguments:
 
 ```
@@ -101,6 +104,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### PATCH '/movies/<int:id>'
 
 - Update an actor by ID
+- Roles: Casting Director and Executive Producer
 - Request Arguments:
 
 ```
@@ -124,6 +128,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 
 ### GET '/actors'
 - Fetches all actors available in the database
+- Roles: All
 - Request Arguments: None
 - Returns:
 
@@ -137,6 +142,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### POST '/actors'
 
 - Inserts a new movie into the database
+- Roles: Casting Director and Executive Producer
 - Request Arguments:
 
 ```
@@ -162,6 +168,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### DELETE '/actors/<int:id>'
 
 - Deletes an actor by ID
+- Roles: Casting Director and Executive Producer
 - Request Arguments:
 
 ```
@@ -182,6 +189,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### PATCH '/actors/<int:id>'
 
 - Update an actor by ID
+- Roles: Casting Director and Executive Producer
 - Request Arguments:
 
 ```
@@ -207,6 +215,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 
 ### GET '/assignments'
 - Fetches all assignments in the database
+- Roles: All
 - Request Arguments: None
 - Returns:
 
@@ -220,6 +229,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### POST '/assignments'
 
 - Inserts a new assignment into the database
+- Roles: Casting Director and Executive Producer
 - Request Arguments:
 
 ```
@@ -243,6 +253,7 @@ There are three (3) main roles; each with different permissions for each endpoin
 ### DELETE '/assignments/<int:id>'
 
 - Deletes an assignment by ID
+- Roles: Casting Director and Executive Producer
 - Request Arguments:
 
 ```
